@@ -33,12 +33,10 @@ function addBookToLibrary(event) {
     myLibrary.push(book);
 
     displayBooks(myLibrary);
+    clearForm();
 }
 
 function displayBooks(library){
-    // library.forEach(element => {
-    //     console.log(element.title + "," + element.author + "," + element.pages + "," + element.read);
-    // });
     clearContainer();
 
     library.forEach(element => {
@@ -47,8 +45,13 @@ function displayBooks(library){
         const testAuthor = document.createElement("p");
         const testPages = document.createElement("p");
         const testRead = document.createElement("p");
+        const deleteBtn = document.createElement("button");
 
-        cardsContainer.appendChild(card);
+        deleteBtn.addEventListener("click", () =>{
+            removeBook(cardsContainer, card);
+        });
+        cardsContainer.insertBefore(card, cardsContainer.firstChild);
+        
         card.appendChild(testTitle);
         testTitle.textContent = element.title;
         card.appendChild(testAuthor);
@@ -57,11 +60,9 @@ function displayBooks(library){
         testPages.textContent = element.pages;
         card.appendChild(testRead);
         testRead.textContent = element.read;
+        card.appendChild(deleteBtn);
 
     });
-
-    clearForm();
-
 }
 
 function clearForm(){
@@ -75,6 +76,15 @@ function clearContainer(){
     cardsContainer.innerHTML = "";
 }
 
+function removeBook(bookContainer, book){
+    const index = (myLibrary.length - 1) - Array.prototype.indexOf.call(bookContainer.children, book);
+    console.log(index);
+    // bookContainer.removeChild(bookContainer.children[index]);
+    myLibrary.splice(index, 1);
+    displayBooks(myLibrary);
+    console.log(myLibrary);
+}
+
 const book1 = {
     title: "Harry Potter",
     author: "Cocki",
@@ -82,6 +92,6 @@ const book1 = {
     read: false
 }
 
-const myLibrary = [book1];
+const myLibrary = [];
 
 // displayBooks(myLibrary);
