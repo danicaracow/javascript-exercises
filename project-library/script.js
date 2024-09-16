@@ -39,6 +39,7 @@ function displayBooks(library){
     // library.forEach(element => {
     //     console.log(element.title + "," + element.author + "," + element.pages + "," + element.read);
     // });
+    clearContainer();
 
     library.forEach(element => {
         const card = document.createElement("div");
@@ -58,6 +59,20 @@ function displayBooks(library){
         testRead.textContent = element.read;
 
     });
+
+    clearForm();
+
+}
+
+function clearForm(){
+    inputTitle.value = "";
+    inputAuthor.value = "";
+    inputPages.value = "";
+    inputRead.checked = false;
+}
+
+function clearContainer(){
+    cardsContainer.innerHTML = "";
 }
 
 const book1 = {
