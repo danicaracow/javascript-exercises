@@ -44,12 +44,24 @@ function displayBooks(library){
         const testTitle = document.createElement("p");
         const testAuthor = document.createElement("p");
         const testPages = document.createElement("p");
-        const testRead = document.createElement("p");
+        const readLabel = document.createElement("label");
+        const switchCont = document.createElement("div");
+        const switchInput = document.createElement("input");
+        const switchSpan = document.createElement("span");
+        // const testRead = document.createElement("p");
         const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "Delete";
 
         deleteBtn.addEventListener("click", () =>{
             removeBook(cardsContainer, card);
         });
+        readLabel.setAttribute("class", "switch-container");
+        switchCont.setAttribute("class", "switch");
+        switchInput.setAttribute("type", "checkbox");
+        switchSpan.setAttribute("class", "slider round");
+
+
+
         cardsContainer.insertBefore(card, cardsContainer.firstChild);
         
         card.appendChild(testTitle);
@@ -58,9 +70,16 @@ function displayBooks(library){
         testAuthor.textContent = element.author;
         card.appendChild(testPages);
         testPages.textContent = element.pages;
-        card.appendChild(testRead);
-        testRead.textContent = element.read;
+        // card.appendChild(testRead);
+        // testRead.textContent = element.read? "Read": "Not read";
+        card.appendChild(readLabel);
+        readLabel.appendChild(switchCont);
+        switchCont.appendChild(switchInput);
+        switchCont.appendChild(switchSpan);
+
         card.appendChild(deleteBtn);
+
+        
 
     });
 }
