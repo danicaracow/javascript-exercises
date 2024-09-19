@@ -5,6 +5,8 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
+const myLibrary = [];
+
 const submitBook = document.querySelector("#submit-book");
 const newBook = document.querySelector("#new-book");
 const dialog = document.querySelector("dialog");
@@ -15,11 +17,8 @@ const inputAuthor = document.querySelector("#author");
 const inputPages = document.querySelector("#pages");
 const inputRead = document.querySelector("#read");
 
-
-
 const cardsContainer = document.querySelector(".container");
 
-// submitBook.addEventListener("click", (event) => addBookToLibrary(event));
 newBook.addEventListener("click", () => dialog.showModal());
 
 form.addEventListener("submit", function(e) {
@@ -31,7 +30,7 @@ function addBookToLibrary(event) {
     dialog.close();
     const book = new Book(inputTitle.value, inputAuthor.value, inputPages.value, inputRead.checked);
     myLibrary.push(book);
-
+    console.log(book.read);
     displayBooks(myLibrary);
     clearForm();
 }
@@ -41,46 +40,36 @@ function displayBooks(library){
 
     library.forEach(element => {
         const card = document.createElement("div");
-        const testTitle = document.createElement("p");
-        const testAuthor = document.createElement("p");
-        const testPages = document.createElement("p");
-        const readLabel = document.createElement("label");
-        const switchCont = document.createElement("div");
-        const switchInput = document.createElement("input");
-        const switchSpan = document.createElement("span");
-        // const testRead = document.createElement("p");
+        const title = document.createElement("p");
+        const author = document.createElement("p");
+        const pages = document.createElement("p");
+        const read = document.createElement("input");
         const deleteBtn = document.createElement("button");
         deleteBtn.innerHTML = "Delete";
 
         deleteBtn.addEventListener("click", () =>{
             removeBook(cardsContainer, card);
         });
-        readLabel.setAttribute("class", "switch-container");
-        switchCont.setAttribute("class", "switch");
-        switchInput.setAttribute("type", "checkbox");
-        switchSpan.setAttribute("class", "slider round");
 
+        read.addEventListener("change", function(){
+            const index = getIndex(cardsContainer, card);
+            myLibrary[index].read = read.checked;
+        })
 
+        read.setAttribute("class", "switch-container");
+        read.setAttribute("type", "checkbox");
 
         cardsContainer.insertBefore(card, cardsContainer.firstChild);
         
-        card.appendChild(testTitle);
-        testTitle.textContent = element.title;
-        card.appendChild(testAuthor);
-        testAuthor.textContent = element.author;
-        card.appendChild(testPages);
-        testPages.textContent = element.pages;
-        // card.appendChild(testRead);
-        // testRead.textContent = element.read? "Read": "Not read";
-        card.appendChild(readLabel);
-        readLabel.appendChild(switchCont);
-        switchCont.appendChild(switchInput);
-        switchCont.appendChild(switchSpan);
-
+        card.appendChild(title);
+        title.textContent = element.title;
+        card.appendChild(author);
+        author.textContent = element.author;
+        card.appendChild(pages);
+        pages.textContent = element.pages;
+        card.appendChild(read);
+        read.checked = element.read;
         card.appendChild(deleteBtn);
-
-        
-
     });
 }
 
@@ -95,22 +84,13 @@ function clearContainer(){
     cardsContainer.innerHTML = "";
 }
 
+function getIndex(bookContainer, book){
+    return (myLibrary.length - 1) - Array.prototype.indexOf.call(bookContainer.children, book);
+}
+
 function removeBook(bookContainer, book){
-    const index = (myLibrary.length - 1) - Array.prototype.indexOf.call(bookContainer.children, book);
-    console.log(index);
-    // bookContainer.removeChild(bookContainer.children[index]);
+    const index = getIndex(bookContainer, book);
     myLibrary.splice(index, 1);
     displayBooks(myLibrary);
     console.log(myLibrary);
 }
-
-const book1 = {
-    title: "Harry Potter",
-    author: "Cocki",
-    pages: 227,
-    read: false
-}
-
-const myLibrary = [];
-
-// displayBooks(myLibrary);

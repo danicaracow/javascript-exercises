@@ -123,21 +123,23 @@ dialog input[type="checkbox"] {
 
 /* CUSTOM SWITCH CHECKBOX */
 /* The switch - the box around the slider */
-.switch {
+
+
+/* .switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
   }
   
-  /* Hide default HTML checkbox */
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
   
-  /* The slider */
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -176,7 +178,7 @@ dialog input[type="checkbox"] {
     transform: translateX(26px);
   }
   
-  /* Rounded sliders */
+
   .slider.round {
     border-radius: 34px;
   }
@@ -184,3 +186,4 @@ dialog input[type="checkbox"] {
   .slider.round:before {
     border-radius: 50%;
   }
+   */
